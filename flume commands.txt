@@ -1,0 +1,20 @@
+KAFKA Commands
+###########################################################################
+
+# Creating the Topic 
+export PATH=$PATH:/usr/hdp/current/kafka-broker/bin
+kafka-topics.sh --create --zookeeper c.insofe.edu.in:2181 --replication-factor 1 --partitions 1 --topic 2383_PHD_topic2
+
+b. Submit the consmer job (I.e. Spark Structured Streaming program)
+spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0 Spark_streaming_df.py
+
+c. From one terminal Kafka Producer will read data from the static source (file path) and pushes the data into Kafka topic
+# Command to push the data to kafka producer.
+bash /home/2383B49/PHD/kafkaloader.sh /home/2383B49/PHD/Kafka_Data c.insofe.edu.in:9092 2383_PHD_topic2
+
+FLUME Commands
+Command to run Flume Agent
+###########################################################################
+
+flume-ng agent --conf ./Conf/ -f Conf/flume-conf.properties -Dflume.root.logger=DEBUG,console -n 2383_PHD
+
